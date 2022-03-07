@@ -1,0 +1,40 @@
+makeCacheMatrix <- function( m = matrix() ) { 
+  ## Initialization
+  id <- NULL 
+  ## Method to set the matrix 
+  setmatrix <- function( matrix ) { 
+    m <<- matrix 
+    id <<- NULL ##the id of the matrix similar with hashmap
+  } 
+  ## Method the get the matrix 
+  getmatrix <- function() { 
+    ## Return the matrix 
+    m 
+  } 
+  ## set the id of the inverse of the matrix 
+  setInverse <- function(inverse) { 
+    id <<- inverse 
+  } 
+  ## get the id  of the inverse of the matrix 
+  getInverse <- function() { 
+    ## Return the id
+    id 
+  } 
+  ## this list i refer some hits from internet
+  list(setmatrix = setmatrix, getmatrix = getmatrix, 
+       setInverse = setInverse, 
+       getInverse = getInverse) 
+} 
+## just like the question ask
+cacheSolve <- function(x, ...) { 
+  
+  m <- x$getInverse() 
+  if( !is.null(m) ) { 
+    message("getting cached data") 
+    return(m) 
+  } 
+  data <- x$getmatrix() 
+  m <- solve(data) %*% data 
+  x$setInverse(m) 
+  m 
+} 
